@@ -8,6 +8,22 @@
 var fs = require('fs');
 var express = require('express');
 var app = express();
+var url = process.env.MONGOLAB_URI;
+var mongodb = require('mongodb');
+var MongoClient = mongodb.MongoClient;
+ MongoClient.connect(url, function (err, db) {
+  if (err) {
+    console.log('Unable to connect to the mongoDB server. Error:', err);
+  } else {
+    console.log('Connection established to', url);
+
+    // do some work here with the database.
+
+    //Close connection
+    db.close();
+  }
+});
+//We need to work with "MongoClient" interface in order to connect to a mongodb server.
 
 if (!process.env.DISABLE_XORIGIN) {
   app.use(function(req, res, next) {
