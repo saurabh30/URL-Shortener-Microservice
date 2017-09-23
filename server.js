@@ -62,7 +62,9 @@ app.route('/')
     .get(function(req, res) {
 		  res.sendFile(process.cwd() + '/views/index.html');
     })
+//my code starts
 
+//my code ends
 // Respond not found to all the wrong routes
 app.use(function(req, res, next){
   res.status(404);
