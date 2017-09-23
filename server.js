@@ -8,6 +8,7 @@
 var fs = require('fs');
 var express = require('express');
 var app = express();
+//databse starts
 var url = process.env.MONGOLAB_URI;
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
@@ -30,6 +31,7 @@ var MongoClient = mongodb.MongoClient;
     db.close();
   }
 });
+//db ends
 //We need to work with "MongoClient" interface in order to connect to a mongodb server.
 
 if (!process.env.DISABLE_XORIGIN) {
