@@ -18,12 +18,14 @@ var MongoClient = mongodb.MongoClient;
     console.log('Connection established to', url);
 
     // do some work here with the database.
-    var data={
-      name:'saurabh',
-      country:'India'
-    }
+    
     var collection=db.collection('first');
-    collection.insert(data);
+    collection.find({
+      country:'India'
+    }).toArray(function(err,docs){
+      if(err) throw err;
+      console.log(docs)
+    })
     //Close connection
     db.close();
   }
