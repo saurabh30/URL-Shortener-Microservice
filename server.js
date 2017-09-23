@@ -63,7 +63,7 @@ app.route('/')
 		  res.sendFile(process.cwd() + '/views/index.html');
     })
 //my code starts
-app.get('/new/url',function(req,res){
+app.get('/new/:id',function(req,res){
   var site=req.params.site;
   console.log(site);
   res.redirect('http://www.google.com');
