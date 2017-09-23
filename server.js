@@ -20,13 +20,7 @@ var MongoClient = mongodb.MongoClient;
 
     // do some work here with the database.
     
-    var collection=db.collection('first');
-    collection.find({
-      country:'India'
-    }).toArray(function(err,docs){
-      if(err) throw err;
-      console.log(docs)
-    })
+  
     //Close connection
     db.close();
   }
@@ -63,8 +57,8 @@ app.route('/')
 		  res.sendFile(process.cwd() + '/views/index.html');
     })
 //my code starts
-app.get('/new/:id',function(req,res){
-  var site=req.params.site;
+app.get('/new/',function(req,res){
+  var site=req.params.id;
   console.log(site);
   res.redirect('http://www.google.com');
 })
