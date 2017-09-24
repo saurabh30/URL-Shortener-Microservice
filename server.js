@@ -67,7 +67,6 @@ app.get('/new/https://:id',function(req,res){
   console.log(site);
   res.redirect('https://'+site);
 })
-app.gey()
 //my code ends
 // Respond not found to all the wrong routes
 app.use(function(req, res, next){
