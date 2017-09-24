@@ -65,7 +65,7 @@ app.get('/new/http://:id',function(req,res){
 app.get('/new/https://:id',function(req,res){
   var site=req.params.id;
   console.log(site);
-  res.redirect('http://www.ideone.com');
+  res.redirect(site);
 })
 //my code ends
 // Respond not found to all the wrong routes
