@@ -65,10 +65,10 @@ app.get('/new/http://:id',function(req,res){
   }
   else res.send({err:'invalid url'});
 });
-app.get('/new/https://www./:id',function(req,res){
+app.get('/new/https://:id',function(req,res){
   var site=req.params.id;
   if(/^www\.[a-zA-Z0-9]+\.com$/.test(site))
-  res.redirect('https://www./'+site);
+  res.redirect('https://'+site);
   else res.send({err:'invalid url'});
 });
 app.get('/new/:id',function(req,res){
