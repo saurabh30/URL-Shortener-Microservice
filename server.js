@@ -57,6 +57,7 @@ app.route('/')
 		  res.sendFile(process.cwd() + '/views/index.html');
     })
 //my code starts
+
 app.get('/new/http://:id',function(req,res){
   var site=req.params.id;
   if(/^www\.[a-zA-Z0-9]+\.com/.test(site)){
@@ -70,6 +71,9 @@ app.get('/new/https://:id',function(req,res){
   res.redirect('https://'+site);
   else res.send({err:'invalid url'});
 });
+app.get('/new/:id',function(req,res){
+  res.send({err:'invalid protocol'})
+})
 //my code ends
 // Respond not found to all the wrong routes
 app.use(function(req, res, next){
