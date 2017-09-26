@@ -59,8 +59,11 @@ app.route('/')
 //my code starts
 app.get('/new/http://:id',function(req,res){
   var site=req.params.id;
+  if(site.test(/^'www'\.[a-zA-Z0-9]+\.'com'/)){
   console.log(site);
   res.redirect('http://'+site);
+  }
+  else res.send({err:'invalid url'});
 });
 app.get('/new/https://:id',function(req,res){
   var site=req.params.id;
