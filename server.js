@@ -58,9 +58,9 @@ app.route('/')
     })
 //my code starts
 
-app.get('/new/http://www.(\S)+.com',function(req,res){
+app.get('/new/http://www.:id(/S+).com',function(req,res){
   var site=req.params.id;
-  res.redirect('http://'+site);
+  res.redirect('http://'+site+'.com');
 });
 app.get('/new/https://:id',function(req,res){
   var site=req.params.id;
