@@ -75,7 +75,7 @@ app.get('/:id',function(req,res){
   res.send({err:'url not found'});
 });
 app.get('/new/http://www.:id.com',function(req,res){
-  var db=connect();
+  connect();
   var site='http://www.'+req.params.id+'.com';
   var query={url:site};
   var collection=dbconn.collection('urls');
@@ -83,16 +83,13 @@ app.get('/new/http://www.:id.com',function(req,res){
     if(err) throw err;
     console.log("found");
     res.end(JSON.stringify(docs));
-    
-      console.log("new");
+  
+  });
+  console.log("new");
       var obj={url:site,
       shorturl:site+'/'+hash(site)};
       collection.insert(obj);
       res.end(JSON.stringify(obj));
-    }
-    dbconn.close();
-  });
-  
   
 });
 app.get('/new/https://www.:id.com',function(req,res){
