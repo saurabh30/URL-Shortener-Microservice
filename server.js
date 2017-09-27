@@ -79,6 +79,7 @@ app.get('/new/http://www.:id.com',function(req,res){
   var site='http://www.'+req.params.id+'.com';
   var collection=dbconn.collection('urls');
   collection.find({$match:{url:site}}).toArray(function(err,docs){
+  
     res.end(JSON.stringify(docs));
     dbconn.close();
   })
