@@ -80,13 +80,13 @@ app.get('/new/http://www.:id.com',function(req,res){
   var collection=dbconn.collection('urls');
   collection.find({$match:{url:site}}).toArray(function(err,docs){
     res.end(JSON.stringify(docs));
-    
+    dbconn.close();
   })
   var obj={url:site,
   shorturl:site+'/'+hash(site)};
   collection.insert(obj);
   res.end(JSON.stringify(obj));
-  dbconn.close();
+  
 });
 app.get('/new/https://www.:id.com',function(req,res){
   var site=req.params.id;
