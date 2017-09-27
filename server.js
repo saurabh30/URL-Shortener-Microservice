@@ -57,10 +57,23 @@ app.route('/')
 		  res.sendFile(process.cwd() + '/views/index.html');
     })
 //my code starts
-
+function hash(s){
+  var sum=0;
+  for(var i=0;i<s.length;i++){
+    sum+=s.charCodeAt(i);
+  }
+  return sum;
+}
+app.get('/:id',function(req,res){
+  res.send({err:'url not found'});
+});
 app.get('/new/http://www.:id.com',function(req,res){
   var site=req.params.id;
-  res.end(site);
+  res.end(site+hash());
+});
+app.get('/new/https://www.:id.com',function(req,res){
+  var site=req.params.id;
+  res.end('https://'+site);
 });
 
 //my code ends
@@ -68,7 +81,7 @@ app.get('/new/http://www.:id.com',function(req,res){
 app.use(function(req, res, next){
   res.status(404);
 
-  res.type('txt').send('Not found');
+  res.type('txt').send({err:'Invalid URL format'});
 });
 
 // Error Middleware
