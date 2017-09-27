@@ -15,7 +15,7 @@ var mongodb = require('mongodb');
 
 function connect(){
   var MongoClient = mongodb.MongoClient;
-   var db=MongoClient.connect(url, function (err, db) {
+   MongoClient.connect(url, function (err, db) {
   if (err) {
     console.log('Unable to connect to the mongoDB server. Error:', err);
   } else {
@@ -25,10 +25,10 @@ function connect(){
   
   
     //Close connection
-    return db;
+    dbconn=db;
   }
 });
-  return db;
+  
 }
 
 //db ends
@@ -76,15 +76,16 @@ app.get('/:id',function(req,res){
 });
 app.get('/new/http://www.:id.com',function(req,res){
   var db=connect();
-  var site='http://www'+req.params.id+'.com';
-  var collection=db.collection('urls');
+  var site='http://www.'+req.params.id+'.com';
+  var collection=dbconn.collection('urls');
   collection.find({$match:{url:site}}).toArray(function(err,docs){
-    res.end(docs);
+    res.end(JSON.stringify(docs));
+    
   })
   var obj={url:site,
-           shorturl:hash(site)};
+  shorturl:site+'/'+hash(site)};
   collection.insert(obj);
-  res.end(obj);
+  res.end(JSON.stringify(obj));
   dbconn.close();
 });
 app.get('/new/https://www.:id.com',function(req,res){
