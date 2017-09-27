@@ -80,15 +80,20 @@ app.get('/new/http://www.:id.com',function(req,res){
   var query={url:site};
   var collection=dbconn.collection('urls');
   collection.find(query).toArray(function(err,docs){
-    if(err) {
-      
-    }
-    dbconn.close();
+    if(err) throw err;
     console.log("found");
     res.end(JSON.stringify(docs));
+    
+      console.log("new");
+      var obj={url:site,
+      shorturl:site+'/'+hash(site)};
+      collection.insert(obj);
+      res.end(JSON.stringify(obj));
+    }
+    dbconn.close();
   });
   
-  dbconn.close();
+  
 });
 app.get('/new/https://www.:id.com',function(req,res){
   var site=req.params.id;
