@@ -8,23 +8,29 @@
 var fs = require('fs');
 var express = require('express');
 var app = express();
+var dbconn;
 //databse starts
 var url = process.env.MONGOLAB_URI;
 var mongodb = require('mongodb');
-var MongoClient = mongodb.MongoClient;
- MongoClient.connect(url, function (err, db) {
+
+function connect(){
+  var MongoClient = mongodb.MongoClient;
+   var db=MongoClient.connect(url, function (err, db) {
   if (err) {
     console.log('Unable to connect to the mongoDB server. Error:', err);
   } else {
     console.log('Connection established to', url);
- var collection=db.collection('urls');
+    
     // do some work here with the database.
   
   
     //Close connection
-    db.close();
+    return db;
   }
 });
+  return db;
+}
+
 //db ends
 //We need to work with "MongoClient" interface in order to connect to a mongodb server.
 
@@ -69,7 +75,9 @@ app.get('/:id',function(req,res){
   res.send({err:'url not found'});
 });
 app.get('/new/http://www.:id.com',function(req,res){
+  var db=connect();
   var site='http://www'+req.params.id+'.com';
+  var collection=db.collection('urls');
   collection.find({$match:{url:site}}).toArray(function(err,docs){
     res.end(docs);
   })
@@ -77,6 +85,7 @@ app.get('/new/http://www.:id.com',function(req,res){
            shorturl:hash(site)};
   collection.insert(obj);
   res.end(obj);
+  dbconn.close();
 });
 app.get('/new/https://www.:id.com',function(req,res){
   var site=req.params.id;
