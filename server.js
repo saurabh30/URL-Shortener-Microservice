@@ -77,17 +77,18 @@ app.get('/:id',function(req,res){
 app.get('/new/http://www.:id.com',function(req,res){
   var db=connect();
   var site='http://www.'+req.params.id+'.com';
+  var query={url:site};
   var collection=dbconn.collection('urls');
-  collection.find({$match:{url:site}}).toArray(function(err,docs){
-  
-    res.end(JSON.stringify(docs));
+  collection.find(query).toArray(function(err,docs){
+    if(err) {
+      
+    }
     dbconn.close();
-  })
-  var obj={url:site,
-  shorturl:site+'/'+hash(site)};
-  collection.insert(obj);
-  res.end(JSON.stringify(obj));
+    console.log("found");
+    res.end(JSON.stringify(docs));
+  });
   
+  dbconn.close();
 });
 app.get('/new/https://www.:id.com',function(req,res){
   var site=req.params.id;
