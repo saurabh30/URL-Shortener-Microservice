@@ -58,11 +58,10 @@ app.route('/')
     })
 //my code starts
 
-app.get('/new/:url',function(req,res){
-  var site=req.params.url;
+app.get('/new/http://www.:id.com',function(req,res){
+  var site=req.params.id;
   res.end(site);
 });
-
 
 //my code ends
 // Respond not found to all the wrong routes
