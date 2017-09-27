@@ -58,8 +58,8 @@ app.route('/')
     })
 //my code starts
 
-app.get('/new/:id',function(req,res){
-  var site=req.params.id;
+app.get('/new/:url',function(req,res){
+  var site=req.params.url;
   res.end(site);
 });
 
