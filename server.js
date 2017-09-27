@@ -12,33 +12,7 @@ var app = express();
 var url = process.env.MONGOLAB_URI;
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
- MongoClient.connect(url, function (err, db) {
-  if (err) {
-    console.log('Unable to connect to the mongoDB server. Error:', err);
-  } else {
-    console.log('Connection established to', url);
- var collection=db.collection('urls');
-    // do some work here with the database.
-  app.get('/:id',function(req,res){
-    
-  res.send({err:'url not found'});
-});
-app.get('/new/http://www.:id.com',function(req,res){
-  var site='http://www'+req.params.id+'.com';
-  collection.find({$match:{url:site}}).toArray(function(err,docs){
-    res.end(d);
-  })
-  
-});
-app.get('/new/https://www.:id.com',function(req,res){
-  var site=req.params.id;
-  res.end('https://'+site);
-});  
-  
-    //Close connection
-    db.close();
-  }
-});
+ 
 //db ends
 //We need to work with "MongoClient" interface in order to connect to a mongodb server.
 
@@ -78,7 +52,36 @@ function hash(s){
   }
   return sum;
 }
-
+MongoClient.connect(url, function (err, db) {
+  if (err) {
+    console.log('Unable to connect to the mongoDB server. Error:', err);
+  } else {
+    console.log('Connection established to', url);
+ var collection=db.collection('urls');
+    // do some work here with the database.
+  app.get('/:id',function(req,res){
+    
+  res.send({err:'url not found'});
+});
+app.get('/new/http://www.:id.com',function(req,res){
+  var site='http://www'+req.params.id+'.com';
+  collection.find({$match:{url:site}}).toArray(function(err,docs){
+    res.end(docs);
+  })
+  var obj={url:site,
+           shorturl:hash(site)};
+  collection.insert(obj);
+  res.end(obj);
+});
+app.get('/new/https://www.:id.com',function(req,res){
+  var site=req.params.id;
+  res.end('https://'+site);
+});  
+  
+    //Close connection
+    db.close();
+  }
+});
 
 //my code ends
 // Respond not found to all the wrong routes
