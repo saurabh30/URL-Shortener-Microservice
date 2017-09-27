@@ -85,11 +85,14 @@ app.get('/new/http://www.:id.com',function(req,res){
     res.end(JSON.stringify(docs));
   
   });
-  console.log("new");
+  setTimeout(function(){
+    console.log("new");
       var obj={url:site,
       shorturl:site+'/'+hash(site)};
       collection.insert(obj);
       res.end(JSON.stringify(obj));
+  },1000);
+  
   
 });
 app.get('/new/https://www.:id.com',function(req,res){
