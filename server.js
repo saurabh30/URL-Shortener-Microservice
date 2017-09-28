@@ -81,13 +81,13 @@ app.get('/new/http://www.:id.com',function(req,res){
  
   var collection=dbconn.collection('urls');
   
-  var docs=collection.find({
-  {url:'http://www.google.com'},
- });
-  setTimeout(function(){
-    res.send(docs);
+  collection.find({
+  url:'http://www.google.com'}
+ ).toArray(function(err,data){
+    res.end(data);
     dbconn.close();
-  },1000);
+  });
+  
   
   
   
