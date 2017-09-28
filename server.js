@@ -89,8 +89,11 @@ app.get('/new/http://www.:id.com',function(req,res){
   new: true,   // return new doc if one is upserted
   upsert: true // insert the document if it does not exist
 });
-  dbconn.close();
-  res.send(docs);
+  setTimeout(function(){
+    res.send(docs);
+    dbconn.close();
+  },1000);
+  
   
   
 });
