@@ -9,6 +9,7 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 var dbconn;
+var domain='https://saurabh-shorturl.glitch.me/';
 //databse starts
 var url = process.env.MONGOLAB_URI;
 var mongodb = require('mongodb');
@@ -77,14 +78,16 @@ app.get('/:id',function(req,res){
 app.get('/new/http://www.:id.com',function(req,res){
   connect();
   var site='http://www.'+req.params.id+'.com';
-  var query={url:site};
-  var collection=dbconn.collection('urls');
-  collection.find(query).toArray(function(err,docs){
-    if(err) {res.end(err);return;}
-    console.log("found");
-    res.end(JSON.stringify(docs));
   
-  });
+  var collection=dbconn.collection('urls');
+  collection.findAndModify({
+  query:{url:site},
+  update: {
+    $setOnInsert: { url:site,shortURL:domain+'/'+hash(site) }
+  },
+  new: true,   // return new doc if one is upserted
+  upsert: true // insert the document if it does not exist
+});
 
   
   
