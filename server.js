@@ -78,10 +78,11 @@ app.get('/:id',function(req,res){
 app.get('/new/http://www.:id.com',function(req,res){
   connect();
   var site='http://www.'+req.params.id+'.com';
-  
+ 
   var collection=dbconn.collection('urls');
+  
   var docs=collection.findAndModify({
-  query:{url:site},
+  query:{url:'http://www.google.com'},
   update: {
     $setOnInsert: { url:site,shortURL:domain+'/'+hash(site) }
   },
