@@ -85,20 +85,23 @@ app.get('/new/http://www.:id.com',function(req,res){
   
   
     var docs=collection.findAndModify({
-  query: {url: site },
+  query: {url: site},
   update: {
     $setOnInsert: { url: site}
   },
-  new: true,
+      new: true,
   upsert: true ,// insert the document if it does not exist
       function(err,docs){
         if(err) throw err;
-        console.log(docs);
-        res.send(docs);
-        dbconn.close();
+        console.log("in");
+        
       }
 });
-  
+  setTimeout(function(){
+    console.log(docs);
+    res.send(docs);
+    
+  },1000);
   
 });
 app.get('/new/https://www.:id.com',function(req,res){
