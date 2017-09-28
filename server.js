@@ -85,12 +85,12 @@ app.get('/new/http://www.:id.com',function(req,res){
   
   
     var docs=collection.findAndModify({
-  query: {url: site},
-  update: {
+  { 'url': site},[],
+  {
     $setOnInsert: { url: site}
   },
-      new: true,
-  upsert: true ,// insert the document if it does not exist
+  {new: true,
+  upsert: true },// insert the document if it does not exist
       function(err,docs){
         if(err) throw err;
         console.log("in");
