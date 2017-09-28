@@ -93,7 +93,7 @@ app.get('/new/http://www.:id.com',function(req,res){
   upsert: true },// insert the document if it does not exist
       function(err,docs){
         if(err) throw err;
-        console.log("in");
+        var obj={url:data.url;shortURL:}
         console.log(docs);
        res.send(docs);
       }
