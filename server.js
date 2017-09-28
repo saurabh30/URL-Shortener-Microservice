@@ -31,6 +31,7 @@ function connect(){
 });
   
 }
+connect();
 
 //db ends
 //We need to work with "MongoClient" interface in order to connect to a mongodb server.
@@ -84,6 +85,7 @@ app.get('/new/http://www.:id.com',function(req,res){
   collection.find({
   url:'http://www.google.com'}
  ).toArray(function(err,data){
+    if(err) throw err;
     res.end(data);
     dbconn.close();
   });
