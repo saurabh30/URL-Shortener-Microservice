@@ -84,24 +84,21 @@ app.get('/new/http://www.:id.com',function(req,res){
   
   
   
-    var docs=collection.findAndModify({
-  { 'url': site},[],
+    var docs=collection.findAndModify(
+  { url:site},[],
   {
-    $setOnInsert: { url: site}
+    $setOnInsert: { url: site,shortURl:domain+'site'}
   },
   {new: true,
   upsert: true },// insert the document if it does not exist
       function(err,docs){
         if(err) throw err;
         console.log("in");
-        
+        console.log(docs);
+       res.send(docs);
       }
-});
-  setTimeout(function(){
-    console.log(docs);
-    res.send(docs);
-    
-  },1000);
+);
+  
   
 });
 app.get('/new/https://www.:id.com',function(req,res){
