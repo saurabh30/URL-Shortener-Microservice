@@ -82,7 +82,9 @@ app.get('/new/http://www.:id.com',function(req,res){
  
   var collection=dbconn.collection('urls');
   
-  var docs=collection.findAndModify({
+  
+  
+    collection.findAndModify({
   query: {url: site },
   update: {
     $setOnInsert: { url: site,
@@ -91,7 +93,7 @@ app.get('/new/http://www.:id.com',function(req,res){
   },
   new: true,   // return new doc if one is upserted
   upsert: true // insert the document if it does not exist
-})
+});
   
   
 });
