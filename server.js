@@ -87,15 +87,15 @@ app.get('/new/http://www.:id.com',function(req,res){
     var docs=collection.findAndModify(
   { url:site},[],
   {
-    $setOnInsert: { url: site,shortURl:domain+'site'}
+    $setOnInsert: { url: site,shortURL:domain+hash(site)}
   },
   {new: true,
   upsert: true },// insert the document if it does not exist
       function(err,docs){
         if(err) throw err;
-        var obj={url:data.url;shortURL:}
         console.log(docs);
-       res.send(docs);
+        var obj={url:docs.value.url,shortURL:docs.value.shortURL}
+        res.send(obj);
       }
 );
   
