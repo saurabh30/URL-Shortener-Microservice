@@ -73,8 +73,13 @@ function hash(s){
   return sum;
 }
 app.get('/:id',function(req,res){
-    
-  res.send({err:'url not found'});
+  var collection=dbconn.collection('urls');
+  collection.find({shortURL:req.params.id}).toArray(function(err,docs){
+    if (err) throw err;
+    console.log(docs);
+    res.end();
+  });
+  
 });
 app.get('/new/http://www.:id.com',function(req,res){
   
