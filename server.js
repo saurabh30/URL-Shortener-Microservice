@@ -82,12 +82,16 @@ app.get('/new/http://www.:id.com',function(req,res){
  
   var collection=dbconn.collection('urls');
   
-  var obj={
-    url:site,
-    shortURL:domain+'/'+hash(site)
-  }
-  collection.insert(obj);
-  
+  var docs=collection.findAndModify({
+  query: {url: site },
+  update: {
+    $setOnInsert: { url: site,
+    shortURL:domain+hash(site)              
+    }
+  },
+  new: true,   // return new doc if one is upserted
+  upsert: true // insert the document if it does not exist
+})
   
   
 });
