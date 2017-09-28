@@ -84,17 +84,20 @@ app.get('/new/http://www.:id.com',function(req,res){
   
   
   
-    collection.findAndModify({
+    var docs=collection.findAndModify({
   query: {url: site },
   update: {
     $setOnInsert: { url: site,
-    shortURL:domain+hash(site)              
-    }
+    shortURL:domain+hash(site)}
   },
-  new: true,   // return new doc if one is upserted
+      {new: true,
   upsert: true // insert the document if it does not exist
 });
-  
+  setTimeout(function(){
+    console.log(docs);
+    res.send(docs);
+    dbconn.close();
+  },1000);
   
 });
 app.get('/new/https://www.:id.com',function(req,res){
