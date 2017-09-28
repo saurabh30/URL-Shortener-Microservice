@@ -80,7 +80,7 @@ app.get('/new/http://www.:id.com',function(req,res){
   var site='http://www.'+req.params.id+'.com';
   
   var collection=dbconn.collection('urls');
-  collection.findAndModify({
+  var docs=collection.findAndModify({
   query:{url:site},
   update: {
     $setOnInsert: { url:site,shortURL:domain+'/'+hash(site) }
@@ -88,7 +88,8 @@ app.get('/new/http://www.:id.com',function(req,res){
   new: true,   // return new doc if one is upserted
   upsert: true // insert the document if it does not exist
 });
-
+  dbconn.close();
+  res.send(docs);
   
   
 });
