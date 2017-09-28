@@ -81,14 +81,9 @@ app.get('/new/http://www.:id.com',function(req,res){
  
   var collection=dbconn.collection('urls');
   
-  var docs=collection.findAndModify({
-  query:{url:'http://www.google.com'},
-  update: {
-    $setOnInsert: { url:site,shortURL:domain+'/'+hash(site) }
-  },
-  new: true,   // return new doc if one is upserted
-  upsert: true // insert the document if it does not exist
-});
+  var docs=collection.find({
+  {url:'http://www.google.com'},
+ });
   setTimeout(function(){
     res.send(docs);
     dbconn.close();
