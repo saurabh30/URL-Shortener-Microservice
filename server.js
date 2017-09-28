@@ -82,14 +82,11 @@ app.get('/new/http://www.:id.com',function(req,res){
  
   var collection=dbconn.collection('urls');
   
-  collection.find({
-  url:'http://www.google.com'}
- ).toArray(function(err,data){
-    if(err) throw err;
-    res.end(data);
-    dbconn.close();
-  });
-  
+  var obj={
+    url:site,
+    shortURL:domain+'/'+hash(site)
+  }
+  collection.insert(obj);
   
   
   
