@@ -80,18 +80,12 @@ app.get('/new/http://www.:id.com',function(req,res){
   var query={url:site};
   var collection=dbconn.collection('urls');
   collection.find(query).toArray(function(err,docs){
-    if(err) throw err;
+    if(err) {res.end(err);return;}
     console.log("found");
     res.end(JSON.stringify(docs));
   
   });
-  setTimeout(function(){
-    console.log("new");
-      var obj={url:site,
-      shorturl:site+'/'+hash(site)};
-      collection.insert(obj);
-      res.end(JSON.stringify(obj));
-  },1000);
+
   
   
 });
