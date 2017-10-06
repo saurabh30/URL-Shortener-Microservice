@@ -20,7 +20,7 @@ function connect(){
   if (err) {
     console.log('Unable to connect to the mongoDB server. Error:', err);
   } else {
-    console.log('Connection established to', url);
+    console.log('Connection established');
     
     // do some work here with the database.
   
@@ -74,10 +74,10 @@ function hash(s){
 }
 app.get('/:id',function(req,res){
   var collection=dbconn.collection('urls');
-  collection.find({shortURL:req.params.id}).toArray(function(err,docs){
+  collection.find({shortURL:domain+req.params.id}).toArray(function(err,docs){
     if (err) throw err;
     console.log(docs);
-    res.end();
+    res.end(docs);
   });
   
 });
