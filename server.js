@@ -76,8 +76,8 @@ app.get('/:id',function(req,res){
   var collection=dbconn.collection('urls');
   collection.find({shortURL:domain+req.params.id}).toArray(function(err,docs){
     if (err) throw err;
-    console.log(JSON.stringify(docs[0]));
-    res.send(docs[0]);
+    console.log(docs[0]);
+    res.end('h');
   });
   
 });
@@ -98,7 +98,7 @@ app.get('/new/http://www.:id(\\S+).com',function(req,res){
   upsert: true },// insert the document if it does not exist
       function(err,docs){
         if(err) throw err;
-        console.log(docs);
+        //console.log(docs);
         var obj={url:docs.value.url,shortURL:docs.value.shortURL}
         res.send(obj);
       }
