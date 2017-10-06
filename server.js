@@ -76,8 +76,10 @@ app.get('/:id',function(req,res){
   var collection=dbconn.collection('urls');
   collection.find({shortURL:domain+req.params.id}).toArray(function(err,docs){
     if (err) throw err;
-    console.log(docs[0]);
+    
+    console.log(docs[0][url]);
     res.end('h');
+    
   });
   
 });
