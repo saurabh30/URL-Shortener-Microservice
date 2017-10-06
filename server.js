@@ -81,7 +81,7 @@ app.get('/:id',function(req,res){
   });
   
 });
-app.get('/new/http://www.:id.com',function(req,res){
+app.get('/new/http://www.:id(\\S+).com',function(req,res){
   
   var site='http://www.'+req.params.id+'.com';
  
@@ -106,7 +106,7 @@ app.get('/new/http://www.:id.com',function(req,res){
   
   
 });
-app.get('/new/https://www.:id.com',function(req,res){
+app.get('/new/https://www.:id(\\S+).com',function(req,res){
   var site=req.params.id;
   res.end('https://'+site);
 });  
