@@ -77,7 +77,7 @@ app.get('/:id',function(req,res){
   collection.find({shortURL:req.params.id}).toArray(function(err,docs){
     if (err) throw err;
     console.log(docs);
-    res.send(docs);
+    res.end();
   });
   
 });
