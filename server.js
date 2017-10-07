@@ -63,7 +63,7 @@ app.route('/_api/package.json')
 app.route('/')
     .get(function(req, res) {
 		  res.sendFile(process.cwd() + '/views/index.html');
-      dbconn.close();
+      
     })
 //my code starts
 function hash(s){
@@ -78,7 +78,7 @@ app.get('/:id',function(req,res){
   collection.find({shortURL:domain+req.params.id}).toArray(function(err,docs){
     if (err) throw err;
     
-    console.log(docs);
+    console.log(JSON.stringify(docs));
     res.send(docs);
     
   });
