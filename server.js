@@ -79,8 +79,8 @@ app.get('/:id',function(req,res){
     if (err) throw err;
     
     console.log(JSON.stringify(docs));
-    res.send(docs[0]['url']);
-    dbconn.close();
+    res.end();
+    
   });
   
 });
