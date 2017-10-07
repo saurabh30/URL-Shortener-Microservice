@@ -79,7 +79,7 @@ app.get('/:id',function(req,res){
     
     console.log(docs);
     res.send(docs);
-    
+    dbconn.close();
   });
   
 });
