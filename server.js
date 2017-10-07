@@ -77,8 +77,8 @@ app.get('/:id',function(req,res){
   collection.find({shortURL:domain+req.params.id}).toArray(function(err,docs){
     if (err) throw err;
     
-    console.log(docs[0][url]);
-    res.end('h');
+    console.log(docs);
+    res.send(docs);
     
   });
   
