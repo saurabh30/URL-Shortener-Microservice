@@ -63,6 +63,7 @@ app.route('/_api/package.json')
 app.route('/')
     .get(function(req, res) {
 		  res.sendFile(process.cwd() + '/views/index.html');
+      dbconn.close();
     })
 //my code starts
 function hash(s){
@@ -79,7 +80,7 @@ app.get('/:id',function(req,res){
     
     console.log(docs);
     res.send(docs);
-    dbconn.close();
+    
   });
   
 });
@@ -104,21 +105,24 @@ app.get('/new/http://www.:id(\\S+).com',function(req,res){
         var obj={url:docs.value.url,shortURL:docs.value.shortURL}
         res.send(obj);
       }
+      
 );
-  
+ 
   
 });
 app.get('/new/https://www.:id(\\S+).com',function(req,res){
   var site=req.params.id;
   res.end('https://'+site);
+  
 });  
 
 //my code ends
 // Respond not found to all the wrong routes
 app.use(function(req, res, next){
   res.status(404);
-
+  
   res.type('txt').send({err:'Invalid URL format'});
+  
 });
 
 // Error Middleware
