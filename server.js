@@ -112,8 +112,27 @@ app.get('/new/http://www.:id(\\S+).com',function(req,res){
   
 });
 app.get('/new/https://www.:id(\\S+).com',function(req,res){
-  var site=req.params.id;
-  res.end('https://'+site);
+    var site='https://www.'+req.params.id+'.com';
+ 
+  var collection=dbconn.collection('urls');
+  
+  
+  
+    var docs=collection.findAndModify(
+  { url:site},[],
+  {
+    $setOnInsert: { url: site,shortURL:domain+hash(site)}
+  },
+  {new: true,
+  upsert: true },// insert the document if it does not exist
+      function(err,docs){
+        if(err) throw err;
+        //console.log(docs);
+        var obj={url:docs.value.url,shortURL:docs.value.shortURL}
+        res.send(obj);
+      }
+      
+);
   
 });  
 
