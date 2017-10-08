@@ -79,7 +79,7 @@ app.get('/:id',function(req,res){
     if(err) throw err;
     console.log(JSON.stringify(docs));
     if(docs.length!==0)
-    res.send(docs[0].url);   
+    res.redirect(docs[0]['url']);   
   });
   
  
