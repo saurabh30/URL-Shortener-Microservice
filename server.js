@@ -75,14 +75,9 @@ function hash(s){
 }
 app.get('/:id',function(req,res){
   var collection=dbconn.collection('urls');
-  collection.find({shortURL:domain+req.params.id}).toArray(function(err,docs){
-    if (err) throw err;
-    
-    console.log(JSON.stringify(docs)+1);
-    res.end();
-    
-  });
-  
+  var doc=collection.findOne({shortURL:domain+req.params.id});
+  console.log(JSON.stringify(doc));
+  res.end();
 });
 app.get('/new/http://www.:id(\\S+).com',function(req,res){
   
