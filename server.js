@@ -77,7 +77,7 @@ app.get('/:id',function(req,res){
   var collection=dbconn.collection('urls');
   var doc=collection.findOne({shortURL:domain+req.params.id});
   console.log(JSON.stringify(doc));
-  res.end();
+  res.send(doc);
 });
 app.get('/new/http://www.:id(\\S+).com',function(req,res){
   
